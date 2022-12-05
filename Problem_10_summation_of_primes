@@ -1,0 +1,42 @@
+"""
+Summation of primes
+
+Problem 10
+
+The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+
+Find the sum of all the primes below two million.
+
+"""
+
+
+import math
+import numpy as np
+import time
+
+def is_prime(n): # old version
+    if n==1:
+        return False
+    else:
+        is_prime = True
+        for i in range(2, math.ceil((n / 2) + 1)):
+            if n%i == 0:
+                is_prime = False
+        return is_prime
+            
+def is_prime_eratosthenes(n):
+    array = np.array([True for i in range (0,n+1)])
+    for i in range (2, math.floor(math.sqrt(n))):
+        if array[i]:
+            j = i**2
+            while j<=n:
+                array[j] = False
+                j = j+i
+    prime_numbers = np.where(array ==True)
+    return prime_numbers[0][2:]
+
+array = np.array([True for i in range (0,100)])
+
+prime_numbers = is_prime_eratosthenes(2000000)
+sum(prime_numbers)
+
